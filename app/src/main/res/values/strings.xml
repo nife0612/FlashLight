@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FlashLightXML</string>
+    <string name="descript_power_button">Power Button</string>
 </resources>
