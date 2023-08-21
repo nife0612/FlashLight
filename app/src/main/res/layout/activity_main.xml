@@ -4,22 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/orange_100"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/powerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        tools:layout_width="100dp"
-        tools:layout_height="250dp"
+        android:contentDescription="@string/descript_power_button"
         app:icon="@drawable/ic_launcher_foreground"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="200dp"
-        android:contentDescription="@string/descript_power_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/button3"
         app:layout_constraintStart_toStartOf="@+id/button3"
@@ -45,4 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </LinearLayout>
