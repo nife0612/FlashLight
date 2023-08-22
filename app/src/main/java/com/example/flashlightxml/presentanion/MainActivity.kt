@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
             exitFromAppUseCase.execute()
         }
 
+        //https://www.tutorialspoint.com/how-to-turn-on-flashlight-programmatically-in-android-using-kotlin
+        //https://developer.android.com/reference/android/widget/RadioGroup
+        //binding.powerButton.setOnCheckedChangeListener
+
         binding.powerButton.setOnClickListener {
             turnFlashLightUseCase.execute()
         }
