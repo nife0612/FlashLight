@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         // ViewBinding вместо findViewByID
         binding.exitButton.setOnClickListener{
-            exitFromAppUseCase.execute()
+            exitFromAppUseCase.execute( )
         }
     }
 
