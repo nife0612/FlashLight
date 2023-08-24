@@ -8,8 +8,7 @@ import com.example.flashlightxml.data.Data
 import com.example.flashlightxml.databinding.ActivityMainBinding
 import com.example.flashlightxml.domain.usecase.ExitFromAppUseCase
 import com.example.flashlightxml.domain.usecase.SOSUseCase
-import com.example.flashlightxml.domain.usecase.OffFlashLightUseCase
-import com.example.flashlightxml.domain.usecase.OnFlashLightUseCase
+import com.example.flashlightxml.domain.usecase.TurnFlashLightUseCase
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         val manager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val data = Data(manager)
-        val offFlashLightUseCase = OffFlashLightUseCase(data)
-        val onFlashLightUseCase = OnFlashLightUseCase(data)
+        val turnFlashLightUseCase = TurnFlashLightUseCase(data)
         val sosUseCase = SOSUseCase(data)
 
         // ViewBinding вместо findViewByID
@@ -44,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.powerButton.setOnClickListener {
             when(isFlashLightOn) {
-                true -> offFlashLightUseCase.execute()
-                false -> onFlashLightUseCase.execute()
+                true -> turnFlashLightUseCase.execute(false)
+                false -> turnFlashLightUseCase.execute(true)
             }
             isFlashLightOn = !isFlashLightOn
         }
