@@ -2,14 +2,14 @@ package com.example.flashlightxml.presentanion
 
 import android.content.Context
 import android.hardware.camera2.CameraManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.example.flashlightxml.data.Data
 import com.example.flashlightxml.databinding.ActivityMainBinding
 import com.example.flashlightxml.domain.usecase.ExitFromAppUseCase
-import com.example.flashlightxml.domain.usecase.TurnFlashLightUseCase
+import com.example.flashlightxml.domain.usecase.SOSUseCase
+import com.example.flashlightxml.domain.usecase.OffFlashLightUseCase
+import com.example.flashlightxml.domain.usecase.OnFlashLightUseCase
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     private val exitFromAppUseCase = ExitFromAppUseCase()
+
+    private var isFlashLightOn: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +29,25 @@ class MainActivity : AppCompatActivity() {
 
         val manager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val data = Data(manager)
-        val turnFlashLightUseCase = TurnFlashLightUseCase(data)
+        val offFlashLightUseCase = OffFlashLightUseCase(data)
+        val onFlashLightUseCase = OnFlashLightUseCase(data)
+        val sosUseCase = SOSUseCase(data)
 
         // ViewBinding вместо findViewByID
         binding.exitButton.setOnClickListener {
             exitFromAppUseCase.execute()
         }
 
-        //https://www.tutorialspoint.com/how-to-turn-on-flashlight-programmatically-in-android-using-kotlin
-        //https://developer.android.com/reference/android/widget/RadioGroup
-        //binding.powerButton.setOnCheckedChangeListener
+        binding.button2.setOnClickListener {
+            sosUseCase.execute()
+        }
 
         binding.powerButton.setOnClickListener {
-            turnFlashLightUseCase.execute()
+            when(isFlashLightOn) {
+                true -> offFlashLightUseCase.execute()
+                false -> onFlashLightUseCase.execute()
+            }
+            isFlashLightOn = !isFlashLightOn
         }
 
     }
