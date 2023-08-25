@@ -1,5 +1,7 @@
 package com.example.flashlightxml.domain.usecase
 
+import android.content.Context
+import android.hardware.camera2.CameraManager
 import com.example.flashlightxml.domain.repository.FlashLightRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,9 +21,15 @@ class SOSUseCase(private val repository: FlashLightRepository) {
     }
 
     private suspend fun flash(timeMillis: Long) {
-        repository.get().manager.setTorchMode(repository.get().manager.cameraIdList[0], true)
+
+        val camManager =
+            repository.get().context?.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+
+        camManager.setTorchMode((camManager.cameraIdList[0]), true)
+
         delay(timeMillis)
-        repository.get().manager.setTorchMode(repository.get().manager.cameraIdList[0], false)
+
+        camManager.setTorchMode(camManager.cameraIdList[0], false)
     }
 
     fun execute() = runBlocking {
