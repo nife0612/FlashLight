@@ -4,7 +4,7 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.flashlightxml.data.Data
+import com.example.flashlightxml.domain.model.CameraManagerData
 import com.example.flashlightxml.databinding.ActivityMainBinding
 import com.example.flashlightxml.domain.usecase.ExitFromAppUseCase
 import com.example.flashlightxml.domain.usecase.SOSUseCase
@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val manager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val data = Data(manager)
-        val turnFlashLightUseCase = TurnFlashLightUseCase(data)
-        val sosUseCase = SOSUseCase(data)
+        val cameraManagerData = CameraManagerData(manager)
+        val turnFlashLightUseCase = TurnFlashLightUseCase(cameraManagerData)
+        val sosUseCase = SOSUseCase(cameraManagerData)
 
         // ViewBinding вместо findViewByID
         binding.exitButton.setOnClickListener {
