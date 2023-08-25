@@ -19,12 +19,9 @@ class FlashLightRepositoryImpl(flashLightModel: FlashLightModel) : FlashLightRep
         return flModel
     }
 
-//    fun getManager(): CameraManager {
-//        return flModel.manager
-//    }
-
     override fun turnLightMode(): Boolean {
         flModel.isFlashLightOn = !flModel.isFlashLightOn
         return flModel.isFlashLightOn
     }
+
 }

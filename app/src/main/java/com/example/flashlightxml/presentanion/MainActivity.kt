@@ -16,12 +16,17 @@ class MainActivity : AppCompatActivity() {
     // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
     private lateinit var binding: ActivityMainBinding
 
-    private val repository by lazy { FlashLightRepositoryImpl(FlashLightModel(camManager = applicationContext?.getSystemService(Context.CAMERA_SERVICE) as CameraManager))}
+    private val repository by lazy {
+        FlashLightRepositoryImpl(
+            FlashLightModel(
+                camManager = applicationContext?.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            )
+        )
+    }
 
-    private val turnFlashLightUseCase by lazy{ TurnFlashLightUseCase(repository) }
-    private val sosUseCase by lazy { SOSUseCase(repository)}
+    private val turnFlashLightUseCase by lazy { TurnFlashLightUseCase(repository) }
+    private val sosUseCase by lazy { SOSUseCase(repository) }
     private val exitFromAppUseCase = ExitFromAppUseCase()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         binding.exitButton.setOnClickListener {
             exitFromAppUseCase.execute()
@@ -42,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         binding.powerButton.setOnClickListener {
             turnFlashLightUseCase.execute()
         }
-
     }
-
 
 }

@@ -9,4 +9,5 @@ interface FlashLightRepository {
     fun get(): FlashLightModel
 
     fun turnLightMode(): Boolean
+
 }

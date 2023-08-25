@@ -6,12 +6,10 @@ import com.example.flashlightxml.domain.repository.FlashLightRepository
 
 class TurnFlashLightUseCase(private val repository: FlashLightRepository) {
 
+    private val camManager = repository.get().camManager
+
     fun execute() {
-
-
         try {
-
-            val camManager = repository.get().camManager
 
             camManager.setTorchMode(camManager.cameraIdList[0], repository.turnLightMode())
 

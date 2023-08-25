@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 // Класс для сигнала SOS
 class SOSUseCase(private val repository: FlashLightRepository) {
 
+    private val camManager= repository.get().camManager
     private val numOfFlashesInSignal = 3
 
     private suspend fun sosSignal() {
@@ -21,14 +22,8 @@ class SOSUseCase(private val repository: FlashLightRepository) {
     }
 
     private suspend fun flash(timeMillis: Long) {
-
-        val camManager =
-            repository.get().camManager
-
         camManager.setTorchMode((camManager.cameraIdList[0]), true)
-
         delay(timeMillis)
-
         camManager.setTorchMode(camManager.cameraIdList[0], false)
     }
 
