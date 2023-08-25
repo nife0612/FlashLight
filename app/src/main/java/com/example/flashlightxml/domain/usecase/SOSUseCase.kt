@@ -1,18 +1,18 @@
 package com.example.flashlightxml.domain.usecase
 
-import com.example.flashlightxml.domain.model.CameraManagerData
+import com.example.flashlightxml.data.repository.FlashLightRepositoryImpl
+import com.example.flashlightxml.domain.model.FlashLightModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 // Класс для сигнала SOS
-class SOSUseCase(private val cameraManagerData: CameraManagerData) {
+class SOSUseCase(private val repository: FlashLightRepositoryImpl) {
 
     private val numOfFlashesInSignal = 3
 
     private suspend fun sosSignal() {
         flash(500L)
-        val a = null
         delay(100L)
         flash(1000L)
         delay(100L)
@@ -20,9 +20,9 @@ class SOSUseCase(private val cameraManagerData: CameraManagerData) {
     }
 
     private suspend fun flash(timeMillis: Long) {
-        cameraManagerData.manager.setTorchMode(cameraManagerData.manager.cameraIdList[0], true)
+        repository.get().manager.setTorchMode(repository.get().manager.cameraIdList[0], true)
         delay(timeMillis)
-        cameraManagerData.manager.setTorchMode(cameraManagerData.manager.cameraIdList[0], false)
+        repository.getManager().setTorchMode(repository.getManager().cameraIdList[0], false)
     }
 
     public fun execute() = runBlocking {

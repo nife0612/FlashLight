@@ -2,15 +2,15 @@ package com.example.flashlightxml.domain.usecase
 
 import android.hardware.camera2.CameraAccessException
 import android.util.Log
-import com.example.flashlightxml.domain.model.CameraManagerData
+import com.example.flashlightxml.data.repository.FlashLightRepositoryImpl
 
-class TurnFlashLightUseCase(private val cameraManagerData: CameraManagerData) {
+class TurnFlashLightUseCase(private val repository: FlashLightRepositoryImpl) {
 
-    public fun execute(turnLight: Boolean){
+    public fun execute(){
         try {
-            cameraManagerData.manager.setTorchMode(cameraManagerData.manager.cameraIdList[0], turnLight)
+           repository.getManager().setTorchMode(repository.getManager().cameraIdList[0], repository.turnFlashLight())
         } catch (e: CameraAccessException) {
-            Log.e("LightError_${if(turnLight) "on" else "off"}", e.toString())
+            Log.e("LightError_${if(repository.turnFlashLight()) "on" else "off"}", e.toString())
         }
     }
 

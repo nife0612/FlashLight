@@ -4,7 +4,9 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.flashlightxml.domain.model.CameraManagerData
+import androidx.core.content.getSystemService
+import com.example.flashlightxml.data.repository.FlashLightRepositoryImpl
+import com.example.flashlightxml.domain.model.FlashLightModel
 import com.example.flashlightxml.databinding.ActivityMainBinding
 import com.example.flashlightxml.domain.usecase.ExitFromAppUseCase
 import com.example.flashlightxml.domain.usecase.SOSUseCase
@@ -15,9 +17,12 @@ class MainActivity : AppCompatActivity() {
     // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
     private lateinit var binding : ActivityMainBinding
 
+
     private val exitFromAppUseCase = ExitFromAppUseCase()
 
-    private var isFlashLightOn: Boolean = false
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +31,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val manager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val cameraManagerData = CameraManagerData(manager)
-        val turnFlashLightUseCase = TurnFlashLightUseCase(cameraManagerData)
-        val sosUseCase = SOSUseCase(cameraManagerData)
+        val flashLightModel = FlashLightModel(this.getSystemService(Context.CAMERA_SERVICE) as CameraManager)
+
+        val repository = FlashLightRepositoryImpl(flashLightModel)
+
+        val turnFlashLightUseCase = TurnFlashLightUseCase(repository)
+        val sosUseCase = SOSUseCase(repository)
+
 
         // ViewBinding вместо findViewByID
         binding.exitButton.setOnClickListener {
@@ -41,13 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.powerButton.setOnClickListener {
-            when(isFlashLightOn) {
-                true -> turnFlashLightUseCase.execute(false)
-                false -> turnFlashLightUseCase.execute(true)
-            }
-            isFlashLightOn = !isFlashLightOn
+            turnFlashLightUseCase.execute()
         }
 
     }
+
+
+
 
 }
