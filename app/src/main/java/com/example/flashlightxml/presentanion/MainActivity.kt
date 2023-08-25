@@ -4,7 +4,6 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 import com.example.flashlightxml.data.repository.FlashLightRepositoryImpl
 import com.example.flashlightxml.databinding.ActivityMainBinding
 import com.example.flashlightxml.domain.model.FlashLightModel
@@ -17,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
     private lateinit var binding: ActivityMainBinding
 
-    private val repository by lazy { FlashLightRepositoryImpl(FlashLightModel(context = applicationContext))}
+    private val repository by lazy { FlashLightRepositoryImpl(FlashLightModel(camManager = applicationContext?.getSystemService(Context.CAMERA_SERVICE) as CameraManager))}
 
-    private val turnFlashLightUseCase by lazy{TurnFlashLightUseCase(repository)}
+    private val turnFlashLightUseCase by lazy{ TurnFlashLightUseCase(repository) }
     private val sosUseCase by lazy { SOSUseCase(repository)}
     private val exitFromAppUseCase = ExitFromAppUseCase()
 
@@ -30,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
 
         binding.exitButton.setOnClickListener {
