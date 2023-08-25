@@ -23,7 +23,7 @@ class SOSUseCase(private val repository: FlashLightRepository) {
     private suspend fun flash(timeMillis: Long) {
 
         val camManager =
-            repository.get().context?.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            repository.get().camManager
 
         camManager.setTorchMode((camManager.cameraIdList[0]), true)
 
