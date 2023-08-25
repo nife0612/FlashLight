@@ -7,7 +7,7 @@ import kotlin.system.exitProcess
 // Архетектура https://www.youtube.com/playlist?list=PLeF3l86ZMVkLQbdRL6Ra4cr_cmPROj94y
 class ExitFromAppUseCase {
 
-    fun execute(){
+    fun execute() {
         // Закрыть приложение
         exitProcess(0)
     }

@@ -1,13 +1,13 @@
 package com.example.flashlightxml.data.repository
 
-import android.hardware.camera2.CameraManager
 import com.example.flashlightxml.domain.model.FlashLightModel
 import com.example.flashlightxml.domain.repository.FlashLightRepository
 
 class FlashLightRepositoryImpl(flashLightModel: FlashLightModel) : FlashLightRepository {
 
-    private var flModel : FlashLightModel
-    init{
+    private var flModel: FlashLightModel
+
+    init {
         flModel = flashLightModel
     }
 
@@ -15,15 +15,15 @@ class FlashLightRepositoryImpl(flashLightModel: FlashLightModel) : FlashLightRep
         flModel = flashLightModel
     }
 
-    override fun get() : FlashLightModel {
-       return flModel
+    override fun get(): FlashLightModel {
+        return flModel
     }
 
-    fun getManager() : CameraManager{
-        return flModel.manager
-    }
+//    fun getManager(): CameraManager {
+//        return flModel.manager
+//    }
 
-    fun turnFlashLight(): Boolean{
+    override fun turnLightMode(): Boolean {
         flModel.isFlashLightOn = !flModel.isFlashLightOn
         return flModel.isFlashLightOn
     }

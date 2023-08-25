@@ -5,5 +5,8 @@ import com.example.flashlightxml.domain.model.FlashLightModel
 interface FlashLightRepository {
 
     fun save(flashLightModel: FlashLightModel)
-    fun get() : FlashLightModel
+
+    fun get(): FlashLightModel
+
+    fun turnLightMode(): Boolean
 }
