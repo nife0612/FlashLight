@@ -13,7 +13,6 @@ import com.example.flashlightxml.domain.usecase.TurnFlashLightUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
     private lateinit var binding: ActivityMainBinding
 
     private val repository by lazy {
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Создаю ViewBinding (https://developer.android.com/topic/libraries/view-binding)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

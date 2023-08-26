@@ -6,14 +6,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-// Класс для сигнала SOS
 class SOSUseCase(private val repository: FlashLightRepository) {
 
     private val camManager= repository.get().camManager
 
     companion object {
         private const val COUNT_OF_FLASHES = 9
-        private const val WAITING = 100L
+        private const val WAITING = 500L
         private const val SHORT = 500L
         private const val LONG = 1000L
     }
